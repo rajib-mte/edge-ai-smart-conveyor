@@ -67,7 +67,7 @@
 #define ECHO_PIN  2
 
 // Object detection distance
-#define OBJECT_DISTANCE_CM 15
+#define OBJECT_DISTANCE_CM 13
 
 
 // ============================================================
@@ -456,7 +456,7 @@ void loop()
         // ====================================================
         // STOP MOTOR
         // ====================================================
-
+        delay(600);
         motorStop();
 
 
@@ -472,6 +472,7 @@ void loop()
         // ====================================================
 
         classifyObject();
+        classifyObject();
 
 
         // ====================================================
@@ -484,7 +485,7 @@ void loop()
         );
 
 
-        delay(1500);
+        delay(500);
 
 
         // ====================================================
@@ -926,13 +927,7 @@ void classifyObject()
         // PLASTIC
         // ====================================================
 
-        if (
-            strcmp(
-                label,
-                "plastic"
-            ) == 0
-        )
-        {
+        if ( strcmp(label, "plastic") == 0 || strcmp(label, "cap") == 0){
 
             Serial.println(
                 "RESULT: PLASTIC"
@@ -942,17 +937,8 @@ void classifyObject()
             // -----------------------------------------------
             // Servo 45 degrees
             // -----------------------------------------------
-
-            servoWriteAngle(
-                SERVO_PLASTIC_ANGLE
-            );
-
-
-            Serial.println(
-                "Servo moved to 45 degrees."
-            );
-
-
+            servoWriteAngle(SERVO_PLASTIC_ANGLE);
+            Serial.println("Servo moved to 45 degrees.");
             // Give servo time to move
             delay(800);
 
@@ -963,17 +949,8 @@ void classifyObject()
         // POTATO
         // ====================================================
 
-        else if (
-            strcmp(
-                label,
-                "potato"
-            ) == 0
-        )
-        {
-
-            Serial.println(
-                "RESULT: POTATO"
-            );
+        else if (strcmp(label, "potato" ) == 0){
+             Serial.println("RESULT: POTATO");
 
 
             // -----------------------------------------------
